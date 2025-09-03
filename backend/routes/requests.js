@@ -17,7 +17,12 @@ router.post('/send', async (req, res) => {
 
     try {
         const { method, url, body } = req.body;
-        const response = await axios({ method, url, data: body });
+        const response = await axios({ method, url, data: body, headers: {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Content-Type': 'application/json',
+  } });
 
         const history = orm.em.create(RequestHistory, {
             method,
