@@ -39,7 +39,7 @@ const RequestForm = ({ onResponse, onRefreshHistory }) => {
             },
             data: body ? JSON.parse(body) : {},
         })
-        console.log(apiResponse)
+        
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/send`, {
        method,url,statusCode:apiResponse.status,data:apiResponse.data,
       });
