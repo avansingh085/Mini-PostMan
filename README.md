@@ -11,7 +11,7 @@ This project has two parts:
 ---
 
 ```bash
-git clone [https://github.com/avansingh085/Mini-PostMan.git](https://github.com/avansingh085/Mini-PostMan.git)
+git clone https://github.com/avansingh085/Mini-PostMan.git
 
 ##Setup Backend
 .env file
