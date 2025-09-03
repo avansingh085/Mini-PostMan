@@ -14,32 +14,30 @@ const initRouter = (_orm) => {
 
 // Send request
 router.post('/send', async (req, res) => {
-
     try {
-        const { method, url, body } = req.body;
-        const response = await axios({ method, url, data: body, headers: {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Content-Type': 'application/json',
-  } });
+        const { method, url, body, data, statusCode } = req.body;
+
+        // If statusCode is missing, try to get it from data
+        console.log(statusCode,req.body)
+        const finalStatusCode = statusCode || (data?.statusCode) || 200;
 
         const history = orm.em.create(RequestHistory, {
             method,
             url,
-            statusCode: response.status,
+            statusCode: finalStatusCode,
             body: JSON.stringify(body || {}),
-            response: JSON.stringify(response.data),
+            response: JSON.stringify(data || {}),
         });
-        console.log(history, "history")
 
         await orm.em.persistAndFlush(history);
-        res.json(response.data);
+
+        res.json(data || {}); // return the actual response
     } catch (err) {
-        console.log(err, "server error")
+        console.log(err, "server error");
         res.status(500).json({ error: err.message });
     }
 });
+
 
 
 // History with pagination
@@ -52,7 +50,7 @@ router.get('/history', async (req, res) => {
         limit,
         offset: (page - 1) * limit,
     });
-    console.log(data, total, page, Math.ceil(total / limit))
+
 
     res.json({ data, total, page, totalPages: Math.ceil(total / limit) });
 });

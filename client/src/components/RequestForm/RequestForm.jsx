@@ -29,10 +29,19 @@ const RequestForm = ({ onResponse, onRefreshHistory }) => {
     
     setLoading(true);
     try {
+         const apiResponse = await axios.get(url,{
+            method,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Content-Type': 'application/json',
+            },
+            data: body ? JSON.parse(body) : {},
+        })
+        console.log(apiResponse)
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/send`, {
-        method,
-        url,
-        body: body ? JSON.parse(body) : {},
+       method,url,statusCode:apiResponse.status,data:apiResponse.data,
       });
       
       // Cache GET responses
