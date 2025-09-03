@@ -17,6 +17,7 @@ const History = ({ refreshSignal }) => {
       refresh(); // Use the refresh method from the hook
     }
   }, [refreshSignal, refresh]);
+  
 
   return (
     <div className="bg-white rounded-xl shadow-md p-6">
