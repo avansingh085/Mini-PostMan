@@ -46,10 +46,10 @@ const RequestForm = ({ onResponse, onRefreshHistory }) => {
       
       // Cache GET responses
       if (method === 'GET') {
-        setToCache(url, response.data);
+        setToCache(url, {method,url,statusCode:apiResponse.status,data:apiResponse.data});
       }
       
-      onResponse(response.data);
+      onResponse( {method,url,statusCode:apiResponse.status,data:apiResponse.data});
       onRefreshHistory();
     } catch (err) {
       onResponse({ error: err.message });
