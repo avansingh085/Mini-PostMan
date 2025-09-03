@@ -18,7 +18,7 @@ router.post('/send', async (req, res) => {
         const { method, url, body, data, statusCode } = req.body;
 
         // If statusCode is missing, try to get it from data
-        console.log(statusCode,req.body)
+       
         const finalStatusCode = statusCode || (data?.statusCode) || 200;
 
         const history = orm.em.create(RequestHistory, {

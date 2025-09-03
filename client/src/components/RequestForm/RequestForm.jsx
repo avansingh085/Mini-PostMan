@@ -41,7 +41,7 @@ const RequestForm = ({ onResponse, onRefreshHistory }) => {
         })
         
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/send`, {
-       method,url,statusCode:apiResponse.status,data:apiResponse.data,
+       method,url,statusCode:apiResponse.status,data:apiResponse.data,body: body ? JSON.parse(body) : {},
       });
       
       // Cache GET responses
